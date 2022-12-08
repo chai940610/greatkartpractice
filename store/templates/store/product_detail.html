@@ -16,6 +16,7 @@
     </article> <!-- gallery-wrap .end// -->
             </aside>
             <main class="col-md-6 border-left">
+  <form action="{% url 'add_cart' single_product.id %}" method="POST">
     <article class="content-body">
     
     <h2 class="title">{{single_product.product_name}}</h2>
@@ -30,49 +31,52 @@
     <hr>
         <div class="row">
             <div class="item-option-select">
-                <h6>Choose Color</h6>
-                <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color"> Silver
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" > Gray
-                  </label>
-                  <label class="btn btn-light active">
-                    <input type="radio" name="radio_color checked"> Gold
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color"> Black
-                  </label>
-                </div> 
+                <h6>Choose Colour</h6>
+                <select name="colour" class="form-control" required>
+                    <option value="" disabled selected>Choose Colour</option>
+                    {% for i in single_product.variation_set.asura %} <!--variation_set.all mean will bring all the data from the variation model-->
+                <option value="{{i.variation_value|lower}}">{{i.variation_value|capfirst}}</option>
+                    {% endfor %}
+            </select>
+                
             </div>
         </div> <!-- row.// -->
         <div class="row">
             <div class="item-option-select">
                 <h6>Select Size</h6>
-                <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color"> S
-                  </label>
-                  <label class="btn btn-light active">
-                    <input type="radio" name="radio_color" checked> M
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color"> L
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color"> XL
-                  </label>
-                </div> 
+                <select name="size" class="form-control">
+                    <option value="" disabled selected>Choose Size</option>
+                    {% for i in single_product.variation_set.size %} <!--variation_set.all mean will bring all the data from the variation model-->
+                <option value="{{i.variation_value|lower}}">{{i.variation_value|capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div> <!-- row.// -->
+        <div class="row">
+            <div class="item-option-select">
+                <h6>Select Length</h6>
+                <select name="length" class="form-control">
+                    <option value="" disabled selected>Choose Length</option>
+                    {% for i in single_product.variation_set.length %} <!--variation_set.all mean will bring all the data from the variation model-->
+                <option value="{{i.variation_value|lower}}">{{i.variation_value|capfirst}}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div> <!-- row.// -->
         <hr>
         {% if single_product.stock <= 0 %}
         <b><h1 class="text-danger">Out of stock</h1></b>
         {% else %}
-        <a href="./product-detail.html" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+        {% comment %} {% if check_item %}
+        <a href="#" class="btn  btn-info"> <span class="text">Added to the cart</span> <i class="fas fa-check"></i>  </a>
+        <a href="{% url 'cart' %}" class="btn  btn-info"> <span class="text">View Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+        {% else %} {% endcomment %}
+        <button type="submit" class="btn btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+        {% comment %} {% endif %} {% endcomment %}
         {% endif %}
     </article> <!-- product-info-aside .// -->
+    {% csrf_token %}
+  </form>
             </main> <!-- col.// -->
         </div> <!-- row.// -->
     </div> <!-- card.// -->
