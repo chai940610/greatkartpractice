@@ -132,3 +132,17 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#messages tag
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'warning',  #the INFO is the name of the bootstrap class, when there is error, the warning class will appear
+    50: 'critical',
+}
+
+#Email configuration
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587      #for google gmail
+EMAIL_HOST_USER='chai061094@gmail.com'
+EMAIL_USE_TLS=True
+EMAIL_HOST_PASSWORD='vlebkkiqztbzbfdj'

@@ -1,0 +1,9 @@
+<!--autoescape is something protection, protect your HTML-->
+ {% autoescape off %}
+Hi {{user.full_name}},
+
+Please click on below link to confirm your registration.
+http://{{domain}}{% url 'activate' boy=uid girl=token %}   <!--mean when the user tekan this link, it will go to activate,passing the uid, the token-->
+    <!--understand this? uidb64=uid token=token, since render to string, the context uid and token will appear here, uid will become uidb64, token will be token too, then made an URL link connect two variable-->
+
+{% endautoescape %} 

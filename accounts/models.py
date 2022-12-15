@@ -43,7 +43,8 @@ class Account(AbstractBaseUser):    # this is first, do this function first
     last_name=models.CharField(max_length=200)
     username=models.CharField(max_length=200)
     email=models.EmailField(max_length=200,unique=True)
-    phone_number=models.IntegerField()
+    phone_number=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
     #mandatory
     date_joined=models.DateTimeField(auto_now_add=True)
     last_login=models.DateTimeField(auto_now=True)
@@ -58,6 +59,9 @@ class Account(AbstractBaseUser):    # this is first, do this function first
     #login field
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['first_name','last_name','username','phone_number']
+
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     def __str__(self):
         return self.email

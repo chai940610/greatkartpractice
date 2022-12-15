@@ -58,3 +58,10 @@ $(document).ready(function() {
 }); 
 // jquery end
 
+setTimeout(function(){
+    $('#sampah').fadeOut('slow');
+    $('#sampah1').fadeOut('slow');
+    $('#sampah2').fadeOut('slow');
+    $('#sampah3').fadeOut('slow');
+},4000);
+
